@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Author;
-use App\Models\BookStore;
+use App\Models\Book;
 use Illuminate\Http\Request;
 
 class AuthorController extends Controller
@@ -28,7 +28,7 @@ class AuthorController extends Controller
      */
     public function show(Author $author)
     {
-        $books = BookStore::all();
+        $books = Book::all();
         return view('userdir.authors.show', compact('author', 'books'));
     }
 }

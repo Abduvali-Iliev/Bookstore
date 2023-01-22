@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Author;
-use App\Models\BookStore;
+use App\Models\Book;
 use App\Models\Genre;
 use Illuminate\Http\Request;
 
@@ -29,7 +29,7 @@ class GenreController extends Controller
      */
     public function show(Genre $genre)
     {
-        $books = BookStore::all();
+        $books = Book::all();
         $author = Author::all();
         return view('userdir.genre.show', compact('genre', 'books', 'author'));
     }

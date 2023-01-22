@@ -7,7 +7,7 @@ use App\Http\Requests\BookRequest;
 use App\Http\Requests\ProductRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Author;
-use App\Models\BookStore;
+use App\Models\Book;
 use App\Models\Category;
 use App\Models\Genre;
 use App\Models\Product;
@@ -27,7 +27,7 @@ class BookStoreController extends Controller
      */
     public function index()
     {
-        $books = BookStore::all();
+        $books = Book::all();
         return view('admin.book.index', compact('books'));
     }
 
@@ -54,17 +54,17 @@ class BookStoreController extends Controller
             $path = $file->store('image', 'public');
             $validated['image'] = $path;
         }
-        $book = BookStore::create($validated);
+        $book = Book::create($validated);
         return redirect()->route('admin.books.index', $book)->with('status', "{$book->name} successfully created!");
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\BookStore  $book
+     * @param  \App\Models\Book  $book
      * @return Application|Factory|View
      */
-    public function show(BookStore $book)
+    public function show(Book $book)
     {
         $authors = Author::all();
         $genres = Genre::all();
@@ -74,10 +74,10 @@ class BookStoreController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param BookStore $book
+     * @param Book $book
      * @return Application|Factory|View|Response
      */
-    public function edit(BookStore $book)
+    public function edit(Book $book)
     {
         $authors = Author::all();
         $genres = Genre::all();
@@ -88,10 +88,10 @@ class BookStoreController extends Controller
      * Update the specified resource in storage.
      *
      * @param UpdateBookRequest $request
-     * @param BookStore $book
+     * @param Book $book
      * @return RedirectResponse
      */
-    public function update(UpdateBookRequest $request, BookStore $book): RedirectResponse
+    public function update(UpdateBookRequest $request, Book $book): RedirectResponse
     {
         $validated = $request->validated();
         if ($request->hasFile('image')){
@@ -107,10 +107,10 @@ class BookStoreController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param BookStore $book
+     * @param Book $book
      * @return RedirectResponse
      */
-    public function destroy(BookStore $book)
+    public function destroy(Book $book)
     {
         $book->delete();
         return redirect()

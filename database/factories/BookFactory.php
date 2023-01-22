@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\BookStore>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Book>
  */
-class BookStoreFactory extends Factory
+class BookFactory extends Factory
 {
     /**
      * Define the model's default state.

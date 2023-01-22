@@ -23,7 +23,10 @@ Route::get('/',[ GenreController::class, 'index']);
 Route::resource('books', BookStoreController::class);
 Route::resource('authors', AuthorController::class);
 Route::resource('genres', GenreController::class);
-
+Route::resource(
+    'books.comments',
+    \App\Http\Controllers\CommentController::class)
+    ->only(['store']);
 
 
 Route::get('/admin', [AdminBooksController::class, 'index'])->name('admin.');
@@ -35,6 +38,8 @@ Route::prefix('admin')->name("admin.")->group(function(){
         'genres' => AdminGenreController::class
     ]);
 });
+
+
 
 
 
