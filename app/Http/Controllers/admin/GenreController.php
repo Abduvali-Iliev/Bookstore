@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\GenreRequest;
 use App\Http\Requests\ProductRequest;
 use App\Models\Author;
-use App\Models\BookStore;
+use App\Models\Book;
 use App\Models\Category;
 use App\Models\Genre;
 use App\Models\Product;

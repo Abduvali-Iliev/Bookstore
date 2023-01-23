@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\BookStore;
+use App\Models\Book;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,6 +15,6 @@ class BookSeeder extends Seeder
      */
     public function run()
     {
-        BookStore::factory()->count(6)->create();
+        Book::factory()->count(6)->create();
     }
 }
