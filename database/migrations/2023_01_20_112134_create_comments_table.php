@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('book_id')->constrained();
+            $table->foreignId('book_id')->constrained()->cascadeOnDelete();
             $table->string('author');
             $table->text('body');
             $table->decimal('score');

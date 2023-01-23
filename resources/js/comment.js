@@ -3,17 +3,25 @@ $(document).ready(function () {
         event.preventDefault();
         const data = $('#create-comment').serialize();
         const bookId = $('#book_id').val();
+        const forms = document.querySelectorAll('.needs-validation')
+
         $.ajax({
-            url: `/articles/${bookId}/comments`,
+            url: `/books/${bookId}/comments`,
             method: "POST",
             data: data
         })
             .done(function (msg) {
                 console.log('message => ', msg.comment);
+                Array.from(forms).forEach(form => {
+                    form.classList.remove('was-validated')
+                })
                 renderData(msg.comment);
             })
             .fail(function (response) {
                 console.log('FAIL RESPONSE =================> ', response);
+                Array.from(forms).forEach(form => {
+                        form.classList.add('was-validated')
+                })
             });
     });
 
@@ -25,7 +33,6 @@ $(document).ready(function () {
 
         let html = "<div>" +
             "<div class='media g-mb-30 media-comment'>" +
-            ` <img class='d-flex g-width-50 g-height-50 rounded-circle g-mt-3 g-mr-15' src='${window.location.origin}/default_avatar.png' alt='Image Description'>` +
             " <div class='media-body u-shadow-v18 g-bg-secondary g-pa-30'>" +
             "  <div class='g-mb-15'>" +
             `   <h5 class='h5 g-color-gray-dark-v1 mb-0'>${comment.author}</h5>\n` +
@@ -34,11 +41,14 @@ $(document).ready(function () {
             "  <p>" +
             `    ${comment.body}` +
             "  </p>" +
+            "  <p>" +
+            `    Оценка книги: ${comment.score}` +
+            "  </p>" +
             " </div>" +
             "</div>" +
             "</div>";
 
-        $(commentsBlock).append(html);
+        $(commentsBlock).prepend(html);
         clearForm();
     }
 

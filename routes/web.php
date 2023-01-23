@@ -26,7 +26,7 @@ Route::resource('genres', GenreController::class);
 Route::resource(
     'books.comments',
     \App\Http\Controllers\CommentController::class)
-    ->only(['store']);
+    ->only('store');
 
 
 Route::get('/admin', [AdminBooksController::class, 'index'])->name('admin.');
