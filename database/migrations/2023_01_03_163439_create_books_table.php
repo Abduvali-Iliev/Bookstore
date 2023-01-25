@@ -19,8 +19,8 @@ return new class extends Migration
             $table->integer('price');
             $table->string('description');
             $table->string('image')->nullable();
-            $table->foreignId('author_id')->nullable()->constrained();
-            $table->foreignId('genre_id')->constrained();
+            $table->foreignId('author_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('genre_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
