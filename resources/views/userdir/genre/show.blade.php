@@ -1,4 +1,4 @@
-@extends('base')
+@extends('layouts.app')
 @section('content')
     <div class="container">
         <p><a href="{{route('genres.index')}}">Главная</a>->{{$genre->name}}</p>

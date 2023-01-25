@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookStoreController;
 use App\Http\Controllers\GenreController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\BookStoreController as AdminBooksController;
 use App\Http\Controllers\admin\AuthorController as AdminAuthorController;
@@ -18,20 +19,20 @@ use App\Http\Controllers\admin\GenreController as AdminGenreController;
 |
 */
 
-Route::get('/',[ GenreController::class, 'index']);
+Route::get('/',[ GenreController::class, 'index'])->middleware(['auth']);
 
-Route::resource('books', BookStoreController::class);
-Route::resource('authors', AuthorController::class);
-Route::resource('genres', GenreController::class);
+Route::resource('books', BookStoreController::class)->middleware(['auth']);
+Route::resource('authors', AuthorController::class)->middleware(['auth']);
+Route::resource('genres', GenreController::class)->middleware(['auth']);
 Route::resource(
     'books.comments',
     \App\Http\Controllers\CommentController::class)
     ->only('store');
 
 
-Route::get('/admin', [AdminBooksController::class, 'index'])->name('admin.');
+Route::get('/admin', [AdminBooksController::class, 'index'])->middleware(['auth'])->name('admin.');
 
-Route::prefix('admin')->name("admin.")->group(function(){
+Route::prefix('admin')->middleware(['auth'])->name("admin.")->group(function(){
     Route::resources([
         'books' => AdminBooksController::class,
         'authors' => AdminAuthorController::class,
@@ -42,4 +43,6 @@ Route::prefix('admin')->name("admin.")->group(function(){
 
 
 
+Auth::routes();
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

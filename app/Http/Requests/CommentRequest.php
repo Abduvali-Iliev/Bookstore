@@ -25,8 +25,8 @@ class CommentRequest extends FormRequest
     {
         return [
             'author' => ['required', 'max:128', 'min:2', 'string'],
-            'body' => ['required','max:900'],
-            'score' => ['numeric'],
+            'body' => ['required','max:900', 'min:5'],
+            'score' => 'regex:#[1-5]#',
         ];
     }
 
@@ -39,8 +39,9 @@ class CommentRequest extends FormRequest
             "author.string" => 'Поле должно быть строчным значением',
 
             'body.max' => 'Поле должно быть не более 900 символов',
+            "body.min" => 'Поле должно быть не менее пяти символов',
 
-            'score' => 'Поле должно быть числовим значением'
+            'score.regex' => 'Оценка может быть только от 1 до 5.',
         ];
     }
 }

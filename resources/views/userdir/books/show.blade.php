@@ -1,4 +1,4 @@
-@extends('base')
+@extends('layouts.app')
 @section('content')
     <div class="container">
         <string><a href="{{route('books.index')}}">Главная</a></string>
@@ -41,7 +41,7 @@
                            aria-describedby="authorHelpText"
                            required>
                     <div class="invalid-feedback">
-                        The author name you have entered is not valid
+                        Введённое имя не валидно.
                     </div>
                     <small id="authorHelpText" class="form-text text-muted">Напишите свое имя.</small>
                 </div>
@@ -49,7 +49,7 @@
                     <label for="commentFormControl">Коментарии</label>
                     <textarea name="body" class="form-control" id="commentFormControl" rows="3" required></textarea>
                     <div class="invalid-feedback">
-                        The comment you have entered is not valid
+                        Введённые коментарии не валидны.
                     </div>
                 </div>
 
@@ -64,9 +64,6 @@
                         <option value="4">4</option>
                         <option selected value="5">5</option>
                     </select>
-                    <div class="invalid-feedback">
-                        Error
-                    </div>
                 </div>
 
                 <div class="text-center">

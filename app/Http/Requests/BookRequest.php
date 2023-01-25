@@ -30,7 +30,7 @@ class BookRequest extends FormRequest
             'author_id' => ['nullable'],
             'genre_id' => ['required'],
             'image' => ['required' ,'image'],
-            'price' => ['required']
+            'price' => ['required', 'numeric'],
         ];
     }
 
@@ -46,6 +46,7 @@ class BookRequest extends FormRequest
 
             'image.image' => 'Файл должен быть изображением',
             'price.required' => 'Цена книги не указана',
+            'price.numeric' => 'Цена должна быть в числовом формате',
             'genre_id' => 'Укажите жанр книги'
         ];
     }
