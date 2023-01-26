@@ -53,7 +53,7 @@
                     </div>
                 </div>
 
-                <div class="dropup-center dropup mt-4">
+                <div class="dropup-center dropup mt-4" id="score">
                     <label>
                         Оценка книги
                     </label>

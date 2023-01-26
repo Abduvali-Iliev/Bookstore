@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('book_id')->constrained()->cascadeOnDelete();
             $table->string('author');
             $table->text('body');
-            $table->decimal('score');
+            $table->string('score');
 
             $table->timestamps();
         });
