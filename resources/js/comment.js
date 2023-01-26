@@ -12,7 +12,7 @@ $(document).ready(function () {
             .done(function (msg) {
                 console.log('message => ', msg.comment);
                 Array.from(forms).forEach(form => {
-                    form.classList.remove('was-validated')
+                    form.classList.remove('was-validated');
                 })
                 renderData(msg.comment);
             })
@@ -21,6 +21,7 @@ $(document).ready(function () {
                 Array.from(forms).forEach(form => {
                         form.classList.add('was-validated');
                 })
+                        error(response.responseJSON.errors.score);
             });
     });
 
@@ -50,6 +51,19 @@ $(document).ready(function () {
 
         $(commentsBlock).prepend(html);
         clearForm();
+    }
+
+    function error(response)
+    {
+        let score = $("#score");
+        let paragraph = $("<p>");
+        paragraph.append(response);
+        score.append(paragraph);
+        paragraph.css({'color' : 'red'});
+        score.on('click', function (){
+            paragraph.empty();
+        })
+
     }
 
     function clearForm() {
