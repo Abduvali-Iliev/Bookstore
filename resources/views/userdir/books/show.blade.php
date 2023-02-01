@@ -35,16 +35,18 @@
             <form id="create-comment" class="needs-validation" novalidate>
                 @csrf
                 <input type="hidden" id="book_id" value="{{$book->id}}">
-                <div class="form-group">
-                    <label for="authorInput">Автор</label>
-                    <input name="author" type="text" class="form-control" id="authorInput"
-                           aria-describedby="authorHelpText"
-                           required>
-                    <div class="invalid-feedback">
-                        Введённое имя не валидно.
-                    </div>
-                    <small id="authorHelpText" class="form-text text-muted">Напишите свое имя.</small>
-                </div>
+                <input name="author" type="hidden" class="form-control" id="authorInput"
+                       aria-describedby="authorHelpText"
+                       required
+                       @foreach($users as $user)
+                       @foreach($book->comments as $comment)
+                       @if($user->id = $comment->user_id)
+                       value="{{$user->name}}"
+                    @endif
+                    @endforeach
+                    @endforeach
+                >
+
                 <div class="form-group">
                     <label for="commentFormControl">Коментарии</label>
                     <textarea name="body" class="form-control" id="commentFormControl" rows="3" required></textarea>
@@ -75,29 +77,55 @@
 
         </div>
 
+        <button class="btn btn-outline-secondary mb-4 btn-lg d-block mx-auto" data-bs-toggle="collapse"
+                data-bs-target="#commentCollapse"
+                aria-expanded="false" aria-controls="commentCollapse">All comments
+        </button>
+
+
+        <div class="scrollit collapse multi-collapse" id="commentCollapse">
+            @foreach($book->comments as $comment)
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Автор:
+{{--                        <stirng>{{$user->name}}</stirng>--}}
+                        @if($comment->user == null)
+                            <string class="text-primary">{{$comment->author}}</string>
+                        @else
+                            <string class="text-primary">{{$comment->user->name}}</string>
+                        @endif
+                    </div>
+                    <div class="card-body">
+                        <blockquote class="blockquote mb-0">
+                            <p>{{$comment->body}}</p>
+                            @can('delete', $comment)
+                            <form class="d-inline-block" method="post" action="{{route('books.comments.destroy', ['book' => $book, 'comment' => $comment])}}">
+                                @method('delete')
+                                @csrf
+                                <button type="submit" class="btn btn-outline-danger">Удалить</button>
+                            </form>
+                            @endcan
+
+                            @can('update', $comment)
+                                <div class="col-12 col-md-4 d-inline-block">
+                                    <a class="btn btn-outline-warning"
+                                       href="{{route('books.comments.edit', ['book' => $book, 'comment' => $comment])}}">
+                                        Изменить
+                                    </a>
+                                </div>
+                            @endcan
+                            <footer class="blockquote-footer mt-3">Оценка <cite
+                                    title="Source Title">{{$comment->score}}</cite>
+                            </footer>
+                        </blockquote>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
     </div>
 
-    <button class="btn btn-outline-secondary mb-4 btn-lg d-block mx-auto" data-bs-toggle="collapse" data-bs-target="#commentCollapse"
-            aria-expanded="false" aria-controls="commentCollapse">All comments</button>
 
-
-    <div class="scrollit collapse multi-collapse" id="commentCollapse" >
-        @foreach($book->comments as $comment)
-            <div class="card mb-4">
-                <div class="card-header">
-                    Автор:
-                    <string class="text-primary">{{$comment->author}}</string>
-                </div>
-                <div class="card-body">
-                    <blockquote class="blockquote mb-0">
-                        <p>{{$comment->body}}</p>
-                        <footer class="blockquote-footer">Оценка <cite title="Source Title">{{$comment->score}}</cite>
-                        </footer>
-                    </blockquote>
-                </div>
-            </div>
-        @endforeach
-    </div>
 
 
 @endsection

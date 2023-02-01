@@ -55,7 +55,8 @@ class BookStoreController extends Controller
             $validated['image'] = $path;
         }
         $book = Book::create($validated);
-        return redirect()->route('admin.books.index', $book)->with('status', "{$book->name} successfully created!");
+        return redirect()->route('admin.books.index', $book)
+            ->with('status', "{$book->name} successfully created!");
     }
 
     /**

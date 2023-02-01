@@ -9,7 +9,7 @@ class Book extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'image', 'price', 'author_id', 'genre_id', 'description'];
+    protected $fillable = ['name', 'image', 'price', 'author_id', 'genre_id', 'description', 'user_id'];
 
     public function author()
     {
@@ -24,5 +24,10 @@ class Book extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
