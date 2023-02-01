@@ -17,10 +17,11 @@ class CommentFactory extends Factory
     public function definition()
     {
         return [
-            'author' => $this->faker->name,
+//            'author' => $this->faker->name(),
             'body' => $this->faker->text,
             'book_id' => rand(1, 4),
-            'score' => rand(1, 5)
+            'score' => rand(1, 5),
+            'user_id' => rand(1, 4)
         ];
     }
 }

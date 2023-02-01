@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Genre;
+use App\Models\User;
 use Illuminate\Http\Request;
 use function GuzzleHttp\Promise\all;
 
@@ -32,7 +33,8 @@ class BookStoreController extends Controller
     {
         $authors = Author::all();
         $genres = Genre::all();
-        return view('userdir.books.show', compact('book', 'authors', 'genres'));
+        $users = User::all();
+        return view('userdir.books.show', compact('book', 'authors', 'genres', 'users'));
     }
 
 }

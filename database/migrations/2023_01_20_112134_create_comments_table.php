@@ -15,11 +15,10 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('book_id')->constrained()->cascadeOnDelete();
             $table->string('author');
+            $table->foreignId('book_id')->constrained()->cascadeOnDelete();
             $table->text('body');
             $table->string('score');
-
             $table->timestamps();
         });
     }

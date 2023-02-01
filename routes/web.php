@@ -27,7 +27,7 @@ Route::resource('genres', GenreController::class)->middleware(['auth']);
 Route::resource(
     'books.comments',
     \App\Http\Controllers\CommentController::class)
-    ->only('store');
+    ->only(['store', 'destroy', 'update', 'edit'])->middleware(['auth']);
 
 
 Route::get('/admin', [AdminBooksController::class, 'index'])->middleware(['auth'])->name('admin.');
